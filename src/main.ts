@@ -1,45 +1,45 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as express from 'express';
+import { json, urlencoded } from 'express';
+import * as dotenv from 'dotenv';
+
+// Cargar variables de entorno
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  // --- Middleware para parsear JSON y formularios ---
-  app.use(express.json({ limit: '5mb' })); // Aumenta el límite por si subes imágenes
-  app.use(express.urlencoded({ extended: true, limit: '5mb' }));
-
-  // --- Validaciones globales ---
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true, // Elimina campos no definidos en los DTOs
-      forbidNonWhitelisted: true, // Lanza error si se envían propiedades extra
-      transform: true, // Convierte automáticamente tipos primitivos (string → number, etc.)
-    }),
-  );
-
-  // --- Configuración de Swagger ---
+  
+  // Configurar límites del body parser para manejar imágenes base64 grandes
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
+  
+  // Global validation pipe
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+  }));
+  
+  // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('API de Autenticación y Ofertas')
-    .setDescription('Documentación interactiva de los endpoints del backend')
+    .setTitle('Trueque API')
+    .setDescription('API para sistema de intercambio de productos (trueque). Permite gestionar ofertas, categorías, estados e imágenes de ofertas.')
     .setVersion('1.0')
-    .addTag('Autenticación')
-    .addTag('Ofertas')
-    .addBearerAuth() // Para endpoints protegidos con JWT
+    .addTag('oferta', 'Operaciones relacionadas con ofertas de trueque')
+    .addTag('categoria', 'Operaciones relacionadas con categorías de ofertas')
+    .addTag('estado', 'Operaciones relacionadas con estados de ofertas')
+    .addTag('imagen-oferta', 'Operaciones relacionadas con imágenes de ofertas')
+    .addBearerAuth()
+    .setContact('Equipo de Desarrollo', 'https://example.com', 'support@example.com')
+    .setLicense('MIT', 'https://opensource.org/licenses/MIT')
+    .addServer('http://localhost:3000', 'Servidor de Desarrollo')
     .build();
-
+  
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document, {
-    swaggerOptions: { persistAuthorization: true }, // Mantiene el token en el UI
-  });
-
-  // --- Iniciar servidor ---
-  const PORT = process.env.PORT || 3000;
-  await app.listen(PORT);
-  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
-  console.log(`📘 Swagger disponible en http://localhost:${PORT}/api/docs`);
+  SwaggerModule.setup('api', app, document);
+  
+  await app.listen(process.env.PORT ?? 3000);
 }
-
 bootstrap();

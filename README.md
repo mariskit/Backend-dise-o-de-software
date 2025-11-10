@@ -1,119 +1,98 @@
-Este proyecto implementa el módulo de usuarios y autenticación para la aplicación Trueque, desarrollado con NestJS, Prisma y PostgreSQL.
-Incluye registro, inicio de sesión con JWT, verificación por correo, recuperación de contraseña y gestión de perfil de usuario.
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-🧠 Funcionalidades implementadas
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-PUNTO 1 — Registro y autenticación de usuarios
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-Creación de cuenta con correo electrónico único.
+## Description
 
-Validación de correo mediante enlace de verificación.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-Inicio de sesión con credenciales y generación de JWT.
+## Project setup
 
-Recuperación y restablecimiento de contraseña vía correo electrónico.
+```bash
+$ npm install
+```
 
-PUNTO 2 — Gestión de perfil de usuario
+## Compile and run the project
 
-Edición de información personal (nombre, ubicación, biografía).
+```bash
+# development
+$ npm run start
 
-Visualización de reputación (puntaje y número de trueques).
+# watch mode
+$ npm run start:dev
 
-Posibilidad de desactivar la cuenta.
+# production mode
+$ npm run start:prod
+```
 
- Tecnologías utilizadas
+## Run tests
 
-Node.js + NestJS
-Prisma ORM + PostgreSQL
-JWT (JSON Web Token)
-Mailhog para pruebas de correo
-TypeScript
+```bash
+# unit tests
+$ npm run test
 
- Iniciar el proyecto
+# e2e tests
+$ npm run test:e2e
 
-1. Instalar dependencias
-npm install
+# test coverage
+$ npm run test:cov
+```
 
-2. Levantar los servicios con Docker
-docker-compose up -d
+## Deployment
 
-Esto inicia:
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-PostgreSQL en localhost:5432
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
-Mailhog en http://localhost:8025
+```bash
+$ npm install -g @nestjs/mau
+$ mau deploy
+```
 
-3. Generar las tablas en la base de datos
-npx prisma migrate dev --name init
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-🧩 Estructura del proyecto
+## Resources
 
-src/
-├── auth/
-│ ├── auth.controller.ts → Rutas de autenticación
-│ ├── auth.service.ts → Lógica de registro, login, recuperación
-│ ├── dtos/ → Validaciones (register, login, reset)
-├── users/
-│ ├── users.controller.ts → Rutas de perfil (GET, PATCH, DELETE)
-│ ├── users.service.ts → Lógica de perfil y reputación
-│ ├── dtos/update-user.dto.ts → Validaciones de edición
-├── prisma/
-│ ├── prisma.service.ts → Conexión a la base de datos
-│ ├── schema.prisma → Modelo de usuario
-└── main.ts → Punto de entrada del servidor
+Check out a few resources that may come in handy when working with NestJS:
 
-4. Registro y autenticación de usuarios
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-Registro de usuario (POST /auth/register)
-Body:
-{ "email": "usuario@example.com
-", "password": "clave123" }
-Crea el usuario y envía un correo de verificación visible en Mailhog (http://localhost:8025
-).
+## Support
 
-Verificación de correo (GET /auth/verify?token=TOKEN)
-Verifica el usuario en la base de datos (verified = true).
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-Inicio de sesión (POST /auth/login)
-Body:
-{ "email": "usuario@example.com
-", "password": "clave123" }
-Respuesta:
-{ "message": "Inicio de sesión exitoso", "token": "JWT_TOKEN", "user": { "id": 1, "email": "usuario@example.com
-" } }
+## Stay in touch
 
-Recuperar contraseña (POST /auth/forgot-password)
-Body:
-{ "email": "usuario@example.com
-" }
-Envía un correo con enlace de recuperación visible en Mailhog.
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-Restablecer contraseña (POST /auth/reset-password)
-Body:
-{ "token": "TOKEN_RECIBIDO", "newPassword": "nuevaClave123" }
-Permite establecer una nueva contraseña e invalida el token.
+## License
 
-5. Gestión de perfil de usuario
-
-Ver perfil (GET /users/1)
-Respuesta:
-{ "id": 1, "email": "usuario@example.com
-", "name": null, "location": null, "bio": null, "reputationScore": 0, "tradesClosed": 0, "active": true }
-
-Editar perfil (PATCH /users/1)
-Body:
-{ "name": "Flaki", "location": "Colombia", "bio": "Apasionado por los trueques" }
-Respuesta:
-{ "message": "Perfil actualizado correctamente", "user": { "id": 1, "email": "flaki@example.com
-", "name": "Flaki", "location": "Colombia", "bio": "Apasionado por los trueques" } }
-
-Desactivar cuenta (DELETE /users/1)
-Respuesta:
-{ "message": "Cuenta desactivada correctamente" }
-Marca el usuario como inactivo (active = false).
-
-💌 Verificación de correos con Mailhog
-
-Accede a http://localhost:8025
-
-Ahí puedes visualizar los correos de verificación de cuenta y recuperación de contraseña.
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
